@@ -1,12 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Logger, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { AddNumberDto } from './add.number.dto';
+// import { MessagePattern } from '@nestjs/microservices';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Post()
+  add(@Body() data: AddNumberDto) {
+    Logger.log(data);
+    return this.appService.add(data.nbr1, data.nbr2);
   }
 }
